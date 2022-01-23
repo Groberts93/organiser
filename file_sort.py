@@ -25,7 +25,11 @@ def get_extension_set(extensions):
 
 def get_file_extensions(files):
 
-    ext_func = lambda x: re.compile("\.[a-z]+").findall(x)[-1][1:]
+    search_ext = lambda x: re.compile("\.[a-z]+").findall(x)
+    determine_ext = lambda x: x[-1][1:] if x else "unknown"
+
+    ext_func = lambda x: determine_ext(search_ext(x))
+
     extensions = list(map(ext_func, files))
 
     return extensions
